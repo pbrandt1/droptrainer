@@ -1,0 +1,147 @@
+extends layout
+
+block content
+    //
+       Header
+    //header#header
+        //
+           Logo
+        h1#logo DropTrainer
+        //
+           Nav
+        nav#nav
+            ul
+                li
+                    a(href='#intro') Intro
+                li
+                    a(href='#one') What I Do
+                li
+                    a(href='#two') Who I Am
+                li
+                    a(href='#work') My Work
+                li
+                    a(href='#contact') Contact
+    //
+       Intro
+    section#intro.main.style1.dark.fullscreen
+        .content.container(class="75%")
+            header
+                h2 DropTrainer
+            p.
+                Drag and drop your audio for training
+            footer
+                a.button.style2.down(href='#drop') Drop
+    //
+       Drag n drop
+    section#drop.main.style2.left.dark.fullscreen
+        .app.box.style2#dropzone
+            | Drop files here to add to playlist
+        .content.box.style2
+            header
+                h2 Drop it in!
+            p.
+                Pick out some music or podcasts and drop it in the box over there.
+        a.button.style2.down.anchored(href='#train') Train
+    //
+       Trainer
+    section#train.main.style2.left.dark.fullscreen
+        .app.box.style2
+            header
+                h2 Sup!
+            p
+                | training is  fun
+        .content.box.style2
+            header
+                h2 Train
+            p.
+                Use the slider to control how hard you want to push yourself, and when you're ready, press GO!
+            a.button GO
+        a.button.style2.down.anchored(href='#about') About
+    //
+       Work
+    section#about.main.style3.primary
+        .content.container
+            header
+                h2 My Work
+                p
+                    | Bloop Lorem ipsum dolor sit amet et sapien sed elementum egestas dolore condimentum.
+                    | Fusce blandit ultrices sapien, in accumsan orci rhoncus eu. Sed sodales venenatis
+                    | arcu, id varius justo euismod in. Curabitur egestas consectetur magna vitae.
+            //
+               Lightbox Gallery
+            .container.gallery(class="75%")
+                .row.images(class="0%")
+                    .6u
+                        a.image.fit.from-left(href='images/fulls/01.jpg')
+                            img(src='images/thumbs/01.jpg', title='The Anonymous Red', alt='')
+                    .6u
+                        a.image.fit.from-right(href='images/fulls/02.jpg')
+                            img(src='images/thumbs/02.jpg', title='Airchitecture II', alt='')
+                .row.images(class="0%")
+                    .6u
+                        a.image.fit.from-left(href='images/fulls/03.jpg')
+                            img(src='images/thumbs/03.jpg', title='Air Lounge', alt='')
+                    .6u
+                        a.image.fit.from-right(href='images/fulls/04.jpg')
+                            img(src='images/thumbs/04.jpg', title='Carry on', alt='')
+                .row.images(class="0%")
+                    .6u
+                        a.image.fit.from-left(href='images/fulls/05.jpg')
+                            img(src='images/thumbs/05.jpg', title='The sparkling shell', alt='')
+                    .6u
+                        a.image.fit.from-right(href='images/fulls/06.jpg')
+                            img(src='images/thumbs/06.jpg', title='Bent IX', alt='')
+    //
+       Contact
+    section#contact.main.style3.secondary
+        .content.container
+            header
+                h2 Say Hello.
+                p Lorem ipsum dolor sit amet et sapien sed elementum egestas dolore condimentum.
+            .box.container(class="75%")
+                //
+                   Contact Form
+                form(method='post', action='#')
+                    .row(class="50%")
+                        .6u
+                            input(type='text', name='name', placeholder='Name')
+                        .6u
+                            input(type='email', name='email', placeholder='Email')
+                    .row(class="50%")
+                        .12u
+                            textarea(name='message', placeholder='Message', rows='6')
+                    .row
+                        .12u
+                            ul.actions
+                                li
+                                    input(type='submit', value='Send Message')
+    //
+       Footer
+    footer#footer
+        //
+           Icons
+        ul.actions
+            li
+                a.icon.fa-twitter(href='#')
+                    span.label Twitter
+            li
+                a.icon.fa-facebook(href='#')
+                    span.label Facebook
+            li
+                a.icon.fa-google-plus(href='#')
+                    span.label Google+
+            li
+                a.icon.fa-instagram(href='#')
+                    span.label Instagram
+        //
+           Menu
+        ul.menu
+            li
+                | licensed under the&nbsp;
+                a(href="http://creativecommons.org/licenses/by/4.0/") Creative Commons
+            li
+                | Design:&nbsp;
+                a(href='http://html5up.net') HTML5 UP
+            li
+                | image by&nbsp;
+                a(href="http://nyotaku.com/2014/03/08/out-and-about-with-suzuha-winter-2014/") nyotaku
