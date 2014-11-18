@@ -22,6 +22,12 @@ var DropTrainer = function(options) {
 	 */
 	this.difficulty = options.difficulty || 5;
 
+  /**
+   * audio player
+   * @type {Audio}
+   */
+  this.player = new Audio();
+
 	/**
 	 * Attach event listeners to the element
 	 * Event listeners modify the classes on the element
@@ -99,6 +105,7 @@ DropTrainer.prototype.addFile = function(file) {
 	// get the length of it
 	var audio = document.createElement('audio');
 	var $audio = $(audio);
+  var audioURL = URL.createObjectURL(file);
 	$audio.on('canplaythrough', function(e) {
 		var seconds = e.currentTarget.duration;
 		var duration = moment.duration(seconds, 'seconds');
@@ -111,8 +118,12 @@ DropTrainer.prototype.addFile = function(file) {
 
 		me.$el.append('<div>' + file.name + ' [' + niceTime(seconds) + ']</div>');
 
+    // also queue it up if it's the first one
+    if (me.audioFiles.length == 1) {
+      $(me.player).attr('src', audioURL);
+    }
+
 	});
-	var audioURL = URL.createObjectURL(file);
 	$audio.attr('src', audioURL);
 
 	console.log('adding file', file.name);
@@ -120,6 +131,15 @@ DropTrainer.prototype.addFile = function(file) {
 
 
 };
+
+/**
+ * Plays stuff
+ */
+DropTrainer.prototype.play = function() {
+  this.player.load();
+  this.player.play();
+};
+
 
 /**
  * Turns seconds into h:mm:ss
@@ -142,4 +162,8 @@ var niceTime = function(s) {
  */
 var droptrainer = new DropTrainer({
 	el: document.getElementById('dropzone')
+});
+
+$('#play').on('click', function() {
+  droptrainer.play();
 });
