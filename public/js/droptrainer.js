@@ -1,5 +1,3 @@
-console.log('welcome to droptrainer');
-
 var DropTrainer = function(options) {
 	if (!(this instanceof DropTrainer)) {
 		return new DropTrainer(options);
@@ -14,6 +12,12 @@ var DropTrainer = function(options) {
 	 * @type {Array|*}
 	 */
 	this.audioFiles = options.audioFiles || [];
+
+	/**
+	 * Keeps track of the total length of the workout
+	 * @type {number}
+	 */
+	this.totalDuration = 0;
 
 	/**
 	 * difficulty is a number from 0 to 10 indicating the user's desired difficulty
@@ -73,6 +77,13 @@ var DropTrainer = function(options) {
 			me.addFile(file);
 		});
 	});
+
+	/**
+	 * Run a whole bunch of stuff when the audio time changes
+	 */
+	this.player.ontimeupdate = function() {
+		$("#trainer .elapsed").html(niceTime(event.currentTarget.currentTime));
+	}
 };
 
 
@@ -108,15 +119,10 @@ DropTrainer.prototype.addFile = function(file) {
   var audioURL = URL.createObjectURL(file);
 	$audio.on('canplaythrough', function(e) {
 		var seconds = e.currentTarget.duration;
-		var duration = moment.duration(seconds, 'seconds');
-
-		
-
-
 		me.audioFiles.push(file);
-
-
 		me.$el.append('<div>' + file.name + ' [' + niceTime(seconds) + ']</div>');
+		me.totalDuration += seconds;
+		$("#trainer .timer .total").html(niceTime(droptrainer.totalDuration));
 
     // also queue it up if it's the first one
     if (me.audioFiles.length == 1) {
@@ -131,15 +137,6 @@ DropTrainer.prototype.addFile = function(file) {
 
 
 };
-
-/**
- * Plays stuff
- */
-DropTrainer.prototype.play = function() {
-  this.player.load();
-  this.player.play();
-};
-
 
 /**
  * Turns seconds into h:mm:ss
@@ -164,6 +161,34 @@ var droptrainer = new DropTrainer({
 	el: document.getElementById('dropzone')
 });
 
-$('#play').on('click', function() {
-  droptrainer.play();
-});
+/**
+ * State transitions
+ * basically set up all the wacky visualizations that happen when you click GO
+ */
+(function() {
+	var STATE = {reset: 0, playing: 1, paused: 2};
+	var _state = STATE.reset;
+	$('#go').on('click', function() {
+		if (_state == STATE.reset) {
+			_state = STATE.playing;
+
+			$("#train .content").css('left', '-165%'); // GTFO, hint box
+
+			setTimeout(function() {
+				$("#train .app").addClass('training');
+
+				$("#train .app .timer").show();
+
+				droptrainer.player.load();
+				droptrainer.player.play();
+			}, 200);
+
+		} else if (_state == STATE.paused) {
+			_state = STATE.playing;
+			droptrainer.player.play();
+		} else {
+			_state = STATE.paused;
+			droptrainer.player.pause();
+		}
+	});
+})();

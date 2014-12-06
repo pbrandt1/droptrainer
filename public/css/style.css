@@ -536,6 +536,7 @@
 			
 				.main.style2 .content {
 					position: relative;
+                    display: inline-block;
 					width: 35%;
 
 					-moz-transition: all 1s ease;
@@ -553,6 +554,7 @@
 
                 .main.style2 .app {
                     position: relative;
+                    display: inline-block;
                     width: 55%;
 
                     -moz-transition: all 1s ease;
@@ -1095,9 +1097,38 @@
 /* Drop Zone                                                                     */
 /*********************************************************************************/
     #dropzone {
-        background-color: rgba(185,186,187,0.15);
+        background-color: rgba(185,186,187,0.95);
     }
 
     #dropzone.incoming {
-        background-color: rgba(185,186,187,0.35);
+        background-color: rgba(255,255,255,1);
     }
+
+
+/*********************************************************************************/
+/* Trainer                                                                     */
+/*********************************************************************************/
+#trainer {
+    background-color: rgba(185,186,187,0.95);
+
+    -moz-transition: all 1s ease;
+    -webkit-transition: all 1s ease;
+    -o-transition: all 1s ease;
+    -ms-transition: all 1s ease;
+    transition: all 1s ease;
+}
+
+#trainer.training {
+    width: 100%;
+    height: 100%;
+    background-color: rgba(255,255,255,1);
+}
+
+#trainer .timer {
+    -moz-transition: all 1s ease;
+    -webkit-transition: all 1s ease;
+    -o-transition: all 1s ease;
+    -ms-transition: all 1s ease;
+    transition: all 1s ease;
+}
+

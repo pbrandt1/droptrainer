@@ -47,12 +47,16 @@ block content
     //
        Trainer
     section#train.main.style2.left.dark.fullscreen
-        .app.box.style2
+        .app.box.style2#trainer
+            div.timer(style="display:none;")
+                span.elapsed 00:00
+                span /
+                span.total 00:00
             div#visualization
                 | [visualize difficulty over time]
             div#difficulty
                 | [adjust difficulty]
-            a#play.button GO
+            a#go.button GO
         .content.box.style2
             header
                 h2 Go for the gold!
