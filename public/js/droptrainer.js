@@ -14,6 +14,12 @@ var DropTrainer = function(options) {
 	this.audioFiles = options.audioFiles || [];
 
 	/**
+	 * List of {song:s, duration: d} objects
+	 * @type {Array}
+	 */
+	this.metaDataList = [];
+
+	/**
 	 * Keeps track of the total length of the workout
 	 * @type {number}
 	 */
@@ -25,6 +31,12 @@ var DropTrainer = function(options) {
 	 * @type {number|*}
 	 */
 	this.difficulty = options.difficulty || 5;
+
+	/**
+	 * Array of {duration: seconds, difficulty: 0-10} objects
+	 * @type {Array}
+	 */
+	this.trainingProgram = [];
 
   /**
    * audio player
@@ -123,6 +135,9 @@ DropTrainer.prototype.addFile = function(file) {
 		me.$el.append('<div>' + file.name + ' [' + niceTime(seconds) + ']</div>');
 		me.totalDuration += seconds;
 		$("#trainer .timer .total").html(niceTime(droptrainer.totalDuration));
+		me.metaDataList.push({song: file.name, duration: seconds});
+
+		me.trainingProgram = trainerProgram.computeTrainingProgram(me.metaDataList);
 
     // also queue it up if it's the first one
     if (me.audioFiles.length == 1) {
@@ -181,6 +196,7 @@ var droptrainer = new DropTrainer({
 
 				droptrainer.player.load();
 				droptrainer.player.play();
+
 			}, 200);
 
 		} else if (_state == STATE.paused) {
